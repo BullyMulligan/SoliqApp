@@ -19,6 +19,7 @@ namespace SoliqApp
         private JsonPsic jsonPsic;
         private Automatic testSoliq;
         private Automatic testTasnifBD;
+        private Automatic testJsonTasnif;
         public Form1()
         {
             InitializeComponent();
@@ -66,7 +67,7 @@ namespace SoliqApp
                         row.Cells[0].Value = soliq.selectedList[i].id;
                         row.Cells[1].Value = soliq.selectedList[i].product[0].psic;
                         row.Cells[2].Value = soliq.selectedList[i].status;
-                        labelCountChecksSoliq.Text = $"Количество чеков: {checks.Count}";
+                        
                     }
 
                     if (table==tableTasnifDataBase)
@@ -74,15 +75,23 @@ namespace SoliqApp
                         row.Cells[0].Value = dataBase.selectedChecks[i].id;
                         row.Cells[1].Value = dataBase.selectedChecks[i].psic_code;
                         row.Cells[2].Value = dataBase.selectedChecks[i].psic_text;
-                        labelCheckCountTasnifDB.Text = $"Количество чеков: {checks.Count}";
+                        
+                    }
+
+                    if (table==tableJsonTasnif)
+                    {
+                        row.Cells[0].Value = jsonPsic.selectedList[i].id;
+                        row.Cells[1].Value = jsonPsic.selectedList[i].product[0].psic;
+                        row.Cells[2].Value = jsonPsic.selectedList[i].status;
+                        
                     }
                     table.Rows.Add(row);
                 }
-                
+
+                if (table==tableSoliq){labelCountChecksSoliq.Text = $"Количество чеков: {checks.Count}";}
+                if (table==tableTasnifDataBase){labelCheckCountTasnifDB.Text = $"Количество чеков: {checks.Count}";}
+                if (table==tableJsonTasnif){labelCheckCountJsonTasnif.Text = $"Количество чеков: {checks.Count}";}
             }
-            
-            
-            
         }
 
         //*********************************************Soliq********************************************
@@ -94,7 +103,7 @@ namespace SoliqApp
             openFileJson.ShowDialog();
             soliq._checks = OpenJsonFile(soliq._checks);
             soliq.selectedList = soliq._checks;
-            soliq.CheckCountingSoliq();
+            soliq.CheckCounting();
             FillTable(tableSoliq,soliq.selectedList);
         }
 
@@ -112,11 +121,28 @@ namespace SoliqApp
                     request.GetPsicInfo(cell);
                     if (request._psicInfo.data.content.Length>0)
                     {
-                        labelProductInfoSoliq.Text = $"Product: {request._psicInfo.data.content[0].attributeName}";
+                        switch (sender==tableSoliq)
+                        {
+                            case true:
+                                labelProductInfoSoliq.Text = $"Product: {request._psicInfo.data.content[0].attributeName}";
+                                break;
+                            case false:
+                                labelProductInfoJsonTasnif.Text = $"Product: {request._psicInfo.data.content[0].attributeName}";
+                                break;
+                        }
+                        
                     }
                     else
                     {
-                        labelProductInfoSoliq.Text = "ИКПУ отсутствует в базе Tasnif";
+                        switch (sender==tableSoliq)
+                        {
+                            case true:
+                                labelProductInfoSoliq.Text = "ИКПУ отсутствует в базе Tasnif";
+                                break;
+                            case false:
+                                labelProductInfoJsonTasnif.Text = "ИКПУ отсутствует в базе Tasnif";
+                                break;
+                        }
                     }
                 }
             }
@@ -127,7 +153,7 @@ namespace SoliqApp
         }
 
         //при изменении значения в комбобоксе меняем выбранный лист чеков
-        private void comboBoxCheckListSoliq_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxChanged(object sender, EventArgs e)
         {
             ComboBox combobox = (ComboBox)sender;
             if (combobox == comboBoxCheckListSoliq)
@@ -135,13 +161,17 @@ namespace SoliqApp
                 soliq.SwitchSelectList(comboBoxCheckListSoliq.SelectedIndex);
                 FillTable(tableSoliq,soliq.selectedList);
             }
-
             if (combobox == comboBoxListChecksTasnifDB)
             {
                 dataBase.SwitchSelectList(comboBoxListChecksTasnifDB.SelectedIndex);
                 FillTable(tableTasnifDataBase,dataBase.selectedChecks);
             }
-            
+            if (combobox == comboBoxSelectChecsJsonTasnif)
+            {
+                jsonPsic.SwitchSelectList(comboBoxSelectChecsJsonTasnif.SelectedIndex);
+                FillTable(tableJsonTasnif,jsonPsic.selectedList);
+                
+            }
         }
 
         
@@ -165,6 +195,7 @@ namespace SoliqApp
             try
             {
                 testSoliq.MySoligUniversal();
+                soliq._checks = testSoliq.checks;
             }
             catch (Exception exception)
             {
@@ -213,10 +244,9 @@ namespace SoliqApp
             try
             {
                 dataBase.GetComand(fieldResponse.Text);
-                dataBase.CreateListsOfCheck();
+                dataBase.CheckCounting();
                 dataBase.CloseConection();
-                CheckStatusConnection();
-                
+                CheckStatusConnection(); 
                 FillTable(tableTasnifDataBase,dataBase.selectedChecks);
             }
             catch (Exception exception)
@@ -234,6 +264,7 @@ namespace SoliqApp
             try
             {
                 testTasnifBD.TasnifChangePSIC();
+                dataBase._checks = testTasnifBD.psics;
             }
             catch (Exception exception)
             {
@@ -248,10 +279,29 @@ namespace SoliqApp
             jsonPsic = new JsonPsic();
             openFileJson.ShowDialog();
             jsonPsic._checks = OpenJsonFile(jsonPsic._checks);
-            jsonPsic.CheckCountingSoliq();
-            FillTable(tableJsonTasnif,dataBase.selectedChecks);
+            jsonPsic.CheckCounting();
+            jsonPsic.SwitchSelectList(comboBoxSelectChecsJsonTasnif.SelectedIndex);
+            
+            FillTable(tableJsonTasnif,jsonPsic.selectedList);
         }
 
-        
+        private void buttonJsonTasnif_Click(object sender, EventArgs e)
+        {
+            if (checkedListJsonTasnif.GetItemChecked(1)){SaveBackupOrDone(jsonPsic._checks,"_backup");}
+            testJsonTasnif = new Automatic(jsonPsic._checks);
+            try
+            {
+                testJsonTasnif.TasnifChangePSICJson();
+                jsonPsic._checks = testJsonTasnif.checks;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+            if (checkedListJsonTasnif.GetItemChecked(0)){SaveBackupOrDone(jsonPsic._checks,"");}
+            if (checkedListJsonTasnif.GetItemChecked(2)){SaveBackupOrDone(jsonPsic._checks,"_done");}
+            
+        }
     }
 }

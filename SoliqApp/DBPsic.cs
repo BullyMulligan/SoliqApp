@@ -91,7 +91,7 @@ namespace SoliqApp
             _connection.Close();
         }
         //создаем листы чеков по статусам
-        public void CreateListsOfCheck()
+        public void CheckCounting()
         {
             StringBDInArray();
             statusSuccess = _checks.Where(i => i.status == 1).ToList();

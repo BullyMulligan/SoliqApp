@@ -73,9 +73,10 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.labelProductInfoJsonTasnif = new System.Windows.Forms.Label();
+            this.buttonStartJsonTasnif = new System.Windows.Forms.Button();
             this.labelCheckCountJsonTasnif = new System.Windows.Forms.Label();
-            this.checkedListJson = new System.Windows.Forms.CheckedListBox();
+            this.checkedListJsonTasnif = new System.Windows.Forms.CheckedListBox();
             this.comboBoxSelectChecsJsonTasnif = new System.Windows.Forms.ComboBox();
             this.buttonOpenJsonTasnif = new System.Windows.Forms.Button();
             this.tableJsonTasnif = new System.Windows.Forms.DataGridView();
@@ -190,7 +191,7 @@
             this.comboBoxCheckListSoliq.Size = new System.Drawing.Size(237, 24);
             this.comboBoxCheckListSoliq.TabIndex = 2;
             this.comboBoxCheckListSoliq.Text = "Все чеки";
-            this.comboBoxCheckListSoliq.SelectedIndexChanged += new System.EventHandler(this.comboBoxCheckListSoliq_SelectedIndexChanged);
+            this.comboBoxCheckListSoliq.SelectedIndexChanged += new System.EventHandler(this.comboBoxChanged);
             // 
             // tableSoliq
             // 
@@ -404,7 +405,7 @@
             this.comboBoxListChecksTasnifDB.Size = new System.Drawing.Size(237, 24);
             this.comboBoxListChecksTasnifDB.TabIndex = 7;
             this.comboBoxListChecksTasnifDB.Text = "Все чеки";
-            this.comboBoxListChecksTasnifDB.SelectedIndexChanged += new System.EventHandler(this.comboBoxCheckListSoliq_SelectedIndexChanged);
+            this.comboBoxListChecksTasnifDB.SelectedIndexChanged += new System.EventHandler(this.comboBoxChanged);
             // 
             // buttonStartTasnifDB
             // 
@@ -476,9 +477,10 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.button1);
+            this.tabPage4.Controls.Add(this.labelProductInfoJsonTasnif);
+            this.tabPage4.Controls.Add(this.buttonStartJsonTasnif);
             this.tabPage4.Controls.Add(this.labelCheckCountJsonTasnif);
-            this.tabPage4.Controls.Add(this.checkedListJson);
+            this.tabPage4.Controls.Add(this.checkedListJsonTasnif);
             this.tabPage4.Controls.Add(this.comboBoxSelectChecsJsonTasnif);
             this.tabPage4.Controls.Add(this.buttonOpenJsonTasnif);
             this.tabPage4.Controls.Add(this.tableJsonTasnif);
@@ -490,15 +492,25 @@
             this.tabPage4.Text = "Json";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // labelProductInfoJsonTasnif
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(659, 348);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 30);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
+            this.labelProductInfoJsonTasnif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProductInfoJsonTasnif.BackColor = System.Drawing.Color.Bisque;
+            this.labelProductInfoJsonTasnif.Location = new System.Drawing.Point(529, 91);
+            this.labelProductInfoJsonTasnif.Name = "labelProductInfoJsonTasnif";
+            this.labelProductInfoJsonTasnif.Size = new System.Drawing.Size(233, 78);
+            this.labelProductInfoJsonTasnif.TabIndex = 12;
+            // 
+            // buttonStartJsonTasnif
+            // 
+            this.buttonStartJsonTasnif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonStartJsonTasnif.Location = new System.Drawing.Point(659, 348);
+            this.buttonStartJsonTasnif.Name = "buttonStartJsonTasnif";
+            this.buttonStartJsonTasnif.Size = new System.Drawing.Size(103, 30);
+            this.buttonStartJsonTasnif.TabIndex = 11;
+            this.buttonStartJsonTasnif.Text = "Start";
+            this.buttonStartJsonTasnif.UseVisualStyleBackColor = true;
+            this.buttonStartJsonTasnif.Click += new System.EventHandler(this.buttonJsonTasnif_Click);
             // 
             // labelCheckCountJsonTasnif
             // 
@@ -509,15 +521,15 @@
             this.labelCheckCountJsonTasnif.Size = new System.Drawing.Size(235, 42);
             this.labelCheckCountJsonTasnif.TabIndex = 10;
             // 
-            // checkedListJson
+            // checkedListJsonTasnif
             // 
-            this.checkedListJson.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkedListJson.FormattingEnabled = true;
-            this.checkedListJson.Items.AddRange(new object[] { "Сохранять изменения", "Авто-бэкап до запуска", "Сохранить json после запуска" });
-            this.checkedListJson.Location = new System.Drawing.Point(527, 195);
-            this.checkedListJson.Name = "checkedListJson";
-            this.checkedListJson.Size = new System.Drawing.Size(235, 72);
-            this.checkedListJson.TabIndex = 9;
+            this.checkedListJsonTasnif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListJsonTasnif.FormattingEnabled = true;
+            this.checkedListJsonTasnif.Items.AddRange(new object[] { "Сохранять изменения", "Авто-бэкап до запуска", "Сохранить json после запуска" });
+            this.checkedListJsonTasnif.Location = new System.Drawing.Point(527, 195);
+            this.checkedListJsonTasnif.Name = "checkedListJsonTasnif";
+            this.checkedListJsonTasnif.Size = new System.Drawing.Size(235, 72);
+            this.checkedListJsonTasnif.TabIndex = 9;
             // 
             // comboBoxSelectChecsJsonTasnif
             // 
@@ -529,11 +541,12 @@
             this.comboBoxSelectChecsJsonTasnif.Size = new System.Drawing.Size(237, 24);
             this.comboBoxSelectChecsJsonTasnif.TabIndex = 8;
             this.comboBoxSelectChecsJsonTasnif.Text = "Все чеки";
+            this.comboBoxSelectChecsJsonTasnif.SelectedIndexChanged += new System.EventHandler(this.comboBoxChanged);
             // 
             // buttonOpenJsonTasnif
             // 
             this.buttonOpenJsonTasnif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOpenJsonTasnif.Location = new System.Drawing.Point(6, 6);
+            this.buttonOpenJsonTasnif.Location = new System.Drawing.Point(6, 9);
             this.buttonOpenJsonTasnif.Name = "buttonOpenJsonTasnif";
             this.buttonOpenJsonTasnif.Size = new System.Drawing.Size(103, 30);
             this.buttonOpenJsonTasnif.TabIndex = 7;
@@ -576,6 +589,7 @@
             this.tableJsonTasnif.RowTemplate.Height = 24;
             this.tableJsonTasnif.Size = new System.Drawing.Size(508, 333);
             this.tableJsonTasnif.TabIndex = 3;
+            this.tableJsonTasnif.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.tableSoliq_CellEnter);
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -645,8 +659,10 @@
             this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.Label labelProductInfoJsonTasnif;
+
         private System.Windows.Forms.Label labelCheckCountJsonTasnif;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonStartJsonTasnif;
 
         private System.Windows.Forms.ComboBox comboBoxSelectChecsJsonTasnif;
 
@@ -681,7 +697,7 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
 
         private System.Windows.Forms.ComboBox comboBoxListChecksTasnifDB;
-        private System.Windows.Forms.CheckedListBox checkedListJson;
+        private System.Windows.Forms.CheckedListBox checkedListJsonTasnif;
         private System.Windows.Forms.Label labelCheckCountTasnifDB;
 
         private System.Windows.Forms.DataGridView tableJsonTasnif;

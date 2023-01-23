@@ -20,6 +20,8 @@ namespace SoliqApp
         public List<Check> checks;
         private InfoAboutMethod info;
         public List<DBpsic.DBCheck> psics;
+        public List<PsicCategory> psicJson;
+        
 
         public Automatic(List<Check> _checks, InfoAboutMethod _info)
         {
@@ -30,9 +32,13 @@ namespace SoliqApp
         {
             psics = _psics;
         }
+        public Automatic(List<Check> _checks)
+        {
+            checks = _checks;
+        }
         
         
-        public PsicCategory[] TasnifChangePSIC(PsicCategory[] psics)
+        public void TasnifChangePSICJson()
         {
             driver = new ChromeDriver(); //открываем Хром
             driver.Manage().Window.Maximize(); //открыть в полном окне
@@ -59,24 +65,24 @@ namespace SoliqApp
             try
             {
                 Click(_flagFindByPsic);//кликаем на флажок "поиск по ИКПУ"
-                for (int i = 0; i < psics.Length; i++)
+                for (int i = 0; i < psicJson.Count; i++)
                 {
-                    if (psics[i].status==0)
+                    if (psicJson[i].status==0)
                     {
-                        SendKeys(_fieldFindPsic,psics[i].psic_code);//вводим в поле поиска psic_code
+                        SendKeys(_fieldFindPsic,psicJson[i].psic_code);//вводим в поле поиска psic_code
                         
                         //если появилось сообщение об изменении псика добавить new_psic в поле и поставить статус "изменен"
                         if (driver.FindElements(_messageAboutNeedChange).Count>0)
                         {
-                            psics[i].new_psic = driver.FindElement(_newPsic).Text;
-                            psics[i].status = 2;
+                            psicJson[i].new_psic = driver.FindElement(_newPsic).Text;
+                            psicJson[i].status = 2;
                         }
 
                         //если появилось успешное сообщение ставим статус "успешно" и достаем текст
                         if (driver.FindElements(_messageAboutTryePSIC).Count>0)
                         {
-                            psics[i].psic_text = driver.FindElement(_productName).Text;
-                            psics[i].status = 1;
+                            psicJson[i].psic_text = driver.FindElement(_productName).Text;
+                            psicJson[i].status = 1;
                         }
                         //по окончанию цикла(прохода по ИКПУ), обновляем страницу и жмем флажок "поиск по ИКПУ"
                         driver.Navigate().GoToUrl("https://tasnif.soliq.uz");
@@ -91,7 +97,6 @@ namespace SoliqApp
                 
                 MessageBox.Show($"Ошибка \n{e}");//выводим ошибку
             }
-            return psics;
         }
         
         public void TasnifChangePSIC()

@@ -16,7 +16,7 @@ namespace SoliqApp
         public List<Automatic.Check> _notSuccessStatus = new List<Automatic.Check>();
         public List<Automatic.Check> _notFoundPsicStatus = new List<Automatic.Check>();
         
-        public void CheckCountingSoliq()//Пересчет количества отображаемых чеков
+        public void CheckCounting()//Пересчет количества отображаемых чеков
         {
             //создаем списки с чеками разных статусов
             _nullStatus =_checks.Where(i => i.status == "").ToList();
