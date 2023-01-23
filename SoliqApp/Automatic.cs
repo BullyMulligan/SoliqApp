@@ -17,15 +17,19 @@ namespace SoliqApp
 {
     public class Automatic : Overloads
     {
-       public List<Check> checks;
+        public List<Check> checks;
         private InfoAboutMethod info;
+        public List<DBpsic.DBCheck> psics;
 
         public Automatic(List<Check> _checks, InfoAboutMethod _info)
         {
             checks = _checks;
             info = _info;
         }
-        
+        public Automatic(List<DBpsic.DBCheck> _psics)
+        {
+            psics = _psics;
+        }
         
         
         public PsicCategory[] TasnifChangePSIC(PsicCategory[] psics)
@@ -90,7 +94,7 @@ namespace SoliqApp
             return psics;
         }
         
-        public List<DBpsic.DBCheck> TasnifChangePSIC(List<DBpsic.DBCheck> psics)
+        public void TasnifChangePSIC()
         {
             driver = new ChromeDriver(); //открываем Хром
             driver.Manage().Window.Maximize(); //открыть в полном окне
@@ -148,7 +152,6 @@ namespace SoliqApp
             {
                 MessageBox.Show($"Ошибка \n{e}");//выводим ошибку
             }
-            return psics;
         }
         
 

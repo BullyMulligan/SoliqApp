@@ -24,5 +24,26 @@ namespace SoliqApp
             _notSuccessStatus =_checks.Where(i => i.status != "1").ToList();
             _notFoundPsicStatus = _checks.Where(i => i.status =="2").ToList();
         }
+        public void SwitchSelectList(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    selectedList= _checks;
+                    break;
+                case 1:
+                    selectedList = _successStatus;
+                    break;
+                case 2:
+                    selectedList = _notFoundPsicStatus;
+                    break;
+                case 3:
+                    selectedList = _notSuccessStatus;
+                    break;
+                case 4:
+                    selectedList = _nullStatus;
+                    break;
+            }
+        }
     }
 }

@@ -15,13 +15,13 @@ namespace SoliqApp
         private List<Automatic.Check> _notSuccessStatus = new List<Automatic.Check>();
         private List<Automatic.Check> _notFoundPsicStatus = new List<Automatic.Check>();
         
-        private void CheckCountingSoliq()//Пересчет количества отображаемых чеков
+        public void CheckCountingSoliq()//Пересчет количества отображаемых чеков
         {
             //создаем списки с чеками разных статусов
             _nullStatus =_checks.Where(i => i.status == "").ToList();
             _successStatus = _checks.Where(i => i.status == "1").ToList();
             _notSuccessStatus =_checks.Where(i => i.status != "1").ToList();
-            _notFoundPsicStatus = _checks.Where(i => i.status.Contains("2")).ToList();
+            _notFoundPsicStatus = _checks.Where(i => i.status == "2").ToList();
         }
     }
 }

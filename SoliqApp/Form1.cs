@@ -16,10 +16,13 @@ namespace SoliqApp
     {
         private DBpsic dataBase;
         private Soliq soliq = new Soliq();
-        private Automatic test;
+        private JsonPsic jsonPsic;
+        private Automatic testSoliq;
+        private Automatic testTasnifBD;
         public Form1()
         {
             InitializeComponent();
+            buttonConnect.BackColor = SystemColors.Info;
         }
         
         T OpenJsonFile<T>(T checks)
@@ -49,20 +52,37 @@ namespace SoliqApp
         }
 
         //метод заполнения таблицы
-        void FillTable(DataGridView table,List <Automatic.Check> checks)
+        void FillTable<T>(DataGridView table,List <T> checks)
         {
             table.Rows.Clear();
             table.Refresh();
-            for (int i = 0; i < checks.Count; i++)
+            if (checks!=null)
             {
-                DataGridViewRow row = (DataGridViewRow)table.Rows[0].Clone();
-                row.Cells[0].Value = checks[i].id;
-                row.Cells[1].Value = checks[i].product[0].psic;
-                row.Cells[2].Value = checks[i].status;
-                table.Rows.Add(row);
+                for (int i = 0; i < checks.Count; i++)
+                {
+                    DataGridViewRow row = (DataGridViewRow)table.Rows[0].Clone();
+                    if (table==tableSoliq)
+                    {
+                        row.Cells[0].Value = soliq.selectedList[i].id;
+                        row.Cells[1].Value = soliq.selectedList[i].product[0].psic;
+                        row.Cells[2].Value = soliq.selectedList[i].status;
+                        labelCountChecksSoliq.Text = $"Количество чеков: {checks.Count}";
+                    }
+
+                    if (table==tableTasnifDataBase)
+                    {
+                        row.Cells[0].Value = dataBase.selectedChecks[i].id;
+                        row.Cells[1].Value = dataBase.selectedChecks[i].psic_code;
+                        row.Cells[2].Value = dataBase.selectedChecks[i].psic_text;
+                        labelCheckCountTasnifDB.Text = $"Количество чеков: {checks.Count}";
+                    }
+                    table.Rows.Add(row);
+                }
+                
             }
             
-            labelCountChecksSoliq.Text = $"Количество чеков: {checks.Count}";
+            
+            
         }
 
         //*********************************************Soliq********************************************
@@ -73,8 +93,9 @@ namespace SoliqApp
             soliq._checks = new List<Automatic.Check>();
             openFileJson.ShowDialog();
             soliq._checks = OpenJsonFile(soliq._checks);
+            soliq.selectedList = soliq._checks;
             soliq.CheckCountingSoliq();
-            FillTable(tableSoliq,soliq._checks);
+            FillTable(tableSoliq,soliq.selectedList);
         }
 
         //ивент включается при выборе ячйки внутри таблицы
@@ -108,26 +129,22 @@ namespace SoliqApp
         //при изменении значения в комбобоксе меняем выбранный лист чеков
         private void comboBoxCheckListSoliq_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboBoxCheckListSoliq.SelectedIndex)
+            ComboBox combobox = (ComboBox)sender;
+            if (combobox == comboBoxCheckListSoliq)
             {
-                case 0 :
-                    soliq.selectedList = soliq._checks;
-                    break;
-                case 1 :
-                    soliq.selectedList = soliq._successStatus;
-                    break;
-                case 2 :
-                    soliq.selectedList = soliq._notFoundPsicStatus;
-                    break;
-                case 3 :
-                    soliq.selectedList = soliq._notSuccessStatus;
-                    break;
-                case 4 :
-                    soliq.selectedList = soliq._nullStatus;
-                    break;
+                soliq.SwitchSelectList(comboBoxCheckListSoliq.SelectedIndex);
+                FillTable(tableSoliq,soliq.selectedList);
             }
-            FillTable(tableSoliq,soliq.selectedList);
+
+            if (combobox == comboBoxListChecksTasnifDB)
+            {
+                dataBase.SwitchSelectList(comboBoxListChecksTasnifDB.SelectedIndex);
+                FillTable(tableTasnifDataBase,dataBase.selectedChecks);
+            }
+            
         }
+
+        
 
         private void buttonLoadPDF_Click(object sender, EventArgs e)
         {
@@ -144,26 +161,97 @@ namespace SoliqApp
             if (checkedListSoliq.GetItemChecked(2)){SaveBackupOrDone(soliq._checks, "backup");}
             Automatic.InfoAboutMethod info = new Automatic.InfoAboutMethod(comboBoxCheckListSoliq.SelectedIndex,
                 checkedListSoliq.GetItemChecked(1), openDialogPDF.FileName);
-            test = new Automatic(soliq._checks, info);
+            testSoliq = new Automatic(soliq._checks, info);
             try
             {
-                test.MySoligUniversal();
+                testSoliq.MySoligUniversal();
             }
             catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Ошибка при выполнении функций Selenium");
             }
-            if(checkedListSoliq.GetItemChecked(1)){SaveBackupOrDone(test.checks, "");}
-            if(checkedListSoliq.GetItemChecked(1)){SaveBackupOrDone(test.checks, "done");}
+            if(checkedListSoliq.GetItemChecked(1)){SaveBackupOrDone(testSoliq.checks, "");}
+            if(checkedListSoliq.GetItemChecked(1)){SaveBackupOrDone(testSoliq.checks, "done");}
         }
 
         //*********************************************TasnifDataBase********************************************
-        
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+
+        void CheckStatusConnection()
         {
-            dataBase = new DBpsic(fieldDataBase.Text, fieldLocalHost.Text, fieldUserID.Text, fieldPassword.Text);
-            dataBase.AddMySQLConnection();
+            if (dataBase._connection.Ping())
+            {
+                buttonOpenConnectDB.Text = $"Connected to {fieldLocalHost.Text}";
+                buttonOpenConnectDB.BackColor = Color.Chartreuse;
+                buttonResponse.BackColor=Color.Chartreuse;
+            }
+            else
+            {
+                buttonOpenConnectDB.Text = $"Connecte to DataBase";
+                buttonOpenConnectDB.BackColor = Color.Salmon;
+                buttonResponse.BackColor=Color.Salmon;
+            }
+        }
+        //ивент вызывается при нажатии на кнопку "Connect"
+        private void buttonConnect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataBase = new DBpsic("10.20.33.5", "paym_eva", "dev-base", "Xe3nQx287");
+                dataBase.AddMySQLConnection();
+                dataBase.OpenConnection();
+                CheckStatusConnection();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Ошибка!",exception.Message);
+            }
+        }
+
+        //ивент запускается при клике кнопки "Response"
+        private void buttonResponse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataBase.GetComand(fieldResponse.Text);
+                dataBase.CreateListsOfCheck();
+                dataBase.CloseConection();
+                CheckStatusConnection();
+                
+                FillTable(tableTasnifDataBase,dataBase.selectedChecks);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Подключитесь к базе!");
+                throw;
+            }
             
         }
+
+        private void buttonStartTasnifDB_Click(object sender, EventArgs e)
+        {
+            if (checkedListTasnifDataBase.GetItemChecked(1)){ SaveJsonFileSoliq(dataBase._checks);}
+            testTasnifBD = new Automatic(dataBase._checks);
+            try
+            {
+                testTasnifBD.TasnifChangePSIC();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+            if (checkedListTasnifDataBase.GetItemChecked(0)){SaveJsonFileSoliq(dataBase._checks);}
+        }
+        //******************************************TasnifJson*******************************************
+        private void buttonOpenJson_Click(object sender, EventArgs e)
+        {
+            jsonPsic = new JsonPsic();
+            openFileJson.ShowDialog();
+            jsonPsic._checks = OpenJsonFile(jsonPsic._checks);
+            jsonPsic.CheckCountingSoliq();
+            FillTable(tableJsonTasnif,dataBase.selectedChecks);
+        }
+
+        
     }
 }

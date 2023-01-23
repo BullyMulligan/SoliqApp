@@ -36,6 +36,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.labelProductInfoSoliq = new System.Windows.Forms.Label();
@@ -52,6 +55,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabTasnif = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.buttonResponse = new System.Windows.Forms.Button();
+            this.fieldResponse = new System.Windows.Forms.RichTextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.buttonOpenConnectDB = new System.Windows.Forms.ToolStripDropDownButton();
             this.fieldDataBase = new System.Windows.Forms.ToolStripTextBox();
@@ -62,20 +67,27 @@
             this.labelCheckCountTasnifDB = new System.Windows.Forms.Label();
             this.checkedListTasnifDataBase = new System.Windows.Forms.CheckedListBox();
             this.comboBoxListChecksTasnifDB = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonStartTasnifDB = new System.Windows.Forms.Button();
             this.tableTasnifDataBase = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.labelCheckCountJsonTasnif = new System.Windows.Forms.Label();
+            this.checkedListJson = new System.Windows.Forms.CheckedListBox();
+            this.comboBoxSelectChecsJsonTasnif = new System.Windows.Forms.ComboBox();
+            this.buttonOpenJsonTasnif = new System.Windows.Forms.Button();
+            this.tableJsonTasnif = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.openFileJson = new System.Windows.Forms.OpenFileDialog();
             this.saveDialogJson = new System.Windows.Forms.SaveFileDialog();
             this.openDialogPDF = new System.Windows.Forms.OpenFileDialog();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.fieldResponse = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableSoliq)).BeginInit();
@@ -84,10 +96,13 @@
             this.tabPage3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableTasnifDataBase)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tableJsonTasnif)).BeginInit();
             this.SuspendLayout();
             // 
             // tabMain
             // 
+            this.tabMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tabMain.Controls.Add(this.tabPage1);
             this.tabMain.Controls.Add(this.tabPage2);
             this.tabMain.Location = new System.Drawing.Point(4, 3);
@@ -116,6 +131,7 @@
             // 
             // labelProductInfoSoliq
             // 
+            this.labelProductInfoSoliq.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelProductInfoSoliq.BackColor = System.Drawing.Color.Bisque;
             this.labelProductInfoSoliq.Location = new System.Drawing.Point(535, 82);
             this.labelProductInfoSoliq.Name = "labelProductInfoSoliq";
@@ -156,6 +172,7 @@
             // 
             // checkedListSoliq
             // 
+            this.checkedListSoliq.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListSoliq.FormattingEnabled = true;
             this.checkedListSoliq.Items.AddRange(new object[] { "Сохранять изменения", "Автозамена ИКПУ", "Авто-бэкап до запуска", "Сохранить json после запуска" });
             this.checkedListSoliq.Location = new System.Drawing.Point(534, 212);
@@ -165,6 +182,7 @@
             // 
             // comboBoxCheckListSoliq
             // 
+            this.comboBoxCheckListSoliq.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxCheckListSoliq.FormattingEnabled = true;
             this.comboBoxCheckListSoliq.Items.AddRange(new object[] { "Все чеки", "Успешные", "ИКПУ не найден", "Все, кроме успешных", "Не пройденные" });
             this.comboBoxCheckListSoliq.Location = new System.Drawing.Point(534, 45);
@@ -256,6 +274,7 @@
             // 
             // tabTasnif
             // 
+            this.tabTasnif.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tabTasnif.Controls.Add(this.tabPage3);
             this.tabTasnif.Controls.Add(this.tabPage4);
             this.tabTasnif.Controls.Add(this.tabPage5);
@@ -267,13 +286,13 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.button1);
+            this.tabPage3.Controls.Add(this.buttonResponse);
             this.tabPage3.Controls.Add(this.fieldResponse);
             this.tabPage3.Controls.Add(this.toolStrip1);
             this.tabPage3.Controls.Add(this.labelCheckCountTasnifDB);
             this.tabPage3.Controls.Add(this.checkedListTasnifDataBase);
             this.tabPage3.Controls.Add(this.comboBoxListChecksTasnifDB);
-            this.tabPage3.Controls.Add(this.button2);
+            this.tabPage3.Controls.Add(this.buttonStartTasnifDB);
             this.tabPage3.Controls.Add(this.tableTasnifDataBase);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
@@ -282,6 +301,26 @@
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "DataBase";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // buttonResponse
+            // 
+            this.buttonResponse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonResponse.Location = new System.Drawing.Point(655, 160);
+            this.buttonResponse.Name = "buttonResponse";
+            this.buttonResponse.Size = new System.Drawing.Size(103, 30);
+            this.buttonResponse.TabIndex = 12;
+            this.buttonResponse.Text = "Response";
+            this.buttonResponse.UseVisualStyleBackColor = true;
+            this.buttonResponse.Click += new System.EventHandler(this.buttonResponse_Click);
+            // 
+            // fieldResponse
+            // 
+            this.fieldResponse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fieldResponse.Location = new System.Drawing.Point(523, 80);
+            this.fieldResponse.Name = "fieldResponse";
+            this.fieldResponse.Size = new System.Drawing.Size(234, 66);
+            this.fieldResponse.TabIndex = 11;
+            this.fieldResponse.Text = "select id, psic_code, psic_text from catalog_categories where psic_code > 0 and s" + "tatus = 1";
             // 
             // toolStrip1
             // 
@@ -334,7 +373,7 @@
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(160, 24);
             this.buttonConnect.Text = "Connect";
-            this.buttonConnect.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
             // 
             // labelCheckCountTasnifDB
             // 
@@ -347,33 +386,36 @@
             // 
             // checkedListTasnifDataBase
             // 
+            this.checkedListTasnifDataBase.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListTasnifDataBase.FormattingEnabled = true;
-            this.checkedListTasnifDataBase.Items.AddRange(new object[] { "Сохранять изменения", "Авто-бэкап до запуска", "Сохранить json после запуска" });
-            this.checkedListTasnifDataBase.Location = new System.Drawing.Point(523, 200);
+            this.checkedListTasnifDataBase.Items.AddRange(new object[] { "Сохранять изменения", "Сохранить json после запуска" });
+            this.checkedListTasnifDataBase.Location = new System.Drawing.Point(523, 217);
             this.checkedListTasnifDataBase.Name = "checkedListTasnifDataBase";
-            this.checkedListTasnifDataBase.Size = new System.Drawing.Size(235, 72);
+            this.checkedListTasnifDataBase.Size = new System.Drawing.Size(235, 55);
             this.checkedListTasnifDataBase.TabIndex = 8;
             // 
             // comboBoxListChecksTasnifDB
             // 
+            this.comboBoxListChecksTasnifDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxListChecksTasnifDB.FormattingEnabled = true;
-            this.comboBoxListChecksTasnifDB.Items.AddRange(new object[] { "Все чеки", "Успешные", "ИКПУ не найден", "Все, кроме успешных", "Не пройденные" });
+            this.comboBoxListChecksTasnifDB.Items.AddRange(new object[] { "Все чеки", "Успешные", "Все, кроме успешных", "Не пройденные" });
             this.comboBoxListChecksTasnifDB.Location = new System.Drawing.Point(521, 45);
             this.comboBoxListChecksTasnifDB.Name = "comboBoxListChecksTasnifDB";
             this.comboBoxListChecksTasnifDB.Size = new System.Drawing.Size(237, 24);
             this.comboBoxListChecksTasnifDB.TabIndex = 7;
             this.comboBoxListChecksTasnifDB.Text = "Все чеки";
+            this.comboBoxListChecksTasnifDB.SelectedIndexChanged += new System.EventHandler(this.comboBoxCheckListSoliq_SelectedIndexChanged);
             // 
-            // button2
+            // buttonStartTasnifDB
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(655, 348);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(103, 30);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Start";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
+            this.buttonStartTasnifDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonStartTasnifDB.Location = new System.Drawing.Point(655, 348);
+            this.buttonStartTasnifDB.Name = "buttonStartTasnifDB";
+            this.buttonStartTasnifDB.Size = new System.Drawing.Size(103, 30);
+            this.buttonStartTasnifDB.TabIndex = 6;
+            this.buttonStartTasnifDB.Text = "Start";
+            this.buttonStartTasnifDB.UseVisualStyleBackColor = true;
+            this.buttonStartTasnifDB.Click += new System.EventHandler(this.buttonStartTasnifDB_Click);
             // 
             // tableTasnifDataBase
             // 
@@ -397,7 +439,7 @@
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.tableTasnifDataBase.DefaultCellStyle = dataGridViewCellStyle5;
-            this.tableTasnifDataBase.Location = new System.Drawing.Point(-6, 45);
+            this.tableTasnifDataBase.Location = new System.Drawing.Point(6, 45);
             this.tableTasnifDataBase.Name = "tableTasnifDataBase";
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
@@ -411,8 +453,35 @@
             this.tableTasnifDataBase.Size = new System.Drawing.Size(508, 333);
             this.tableTasnifDataBase.TabIndex = 2;
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.dataGridViewTextBoxColumn1.HeaderText = "id";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.dataGridViewTextBoxColumn2.HeaderText = "psic";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn3.HeaderText = "product";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 50;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.button1);
+            this.tabPage4.Controls.Add(this.labelCheckCountJsonTasnif);
+            this.tabPage4.Controls.Add(this.checkedListJson);
+            this.tabPage4.Controls.Add(this.comboBoxSelectChecsJsonTasnif);
+            this.tabPage4.Controls.Add(this.buttonOpenJsonTasnif);
+            this.tabPage4.Controls.Add(this.tableJsonTasnif);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -420,6 +489,114 @@
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Json";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(659, 348);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 30);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Start";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // labelCheckCountJsonTasnif
+            // 
+            this.labelCheckCountJsonTasnif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelCheckCountJsonTasnif.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.labelCheckCountJsonTasnif.Location = new System.Drawing.Point(527, 284);
+            this.labelCheckCountJsonTasnif.Name = "labelCheckCountJsonTasnif";
+            this.labelCheckCountJsonTasnif.Size = new System.Drawing.Size(235, 42);
+            this.labelCheckCountJsonTasnif.TabIndex = 10;
+            // 
+            // checkedListJson
+            // 
+            this.checkedListJson.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListJson.FormattingEnabled = true;
+            this.checkedListJson.Items.AddRange(new object[] { "Сохранять изменения", "Авто-бэкап до запуска", "Сохранить json после запуска" });
+            this.checkedListJson.Location = new System.Drawing.Point(527, 195);
+            this.checkedListJson.Name = "checkedListJson";
+            this.checkedListJson.Size = new System.Drawing.Size(235, 72);
+            this.checkedListJson.TabIndex = 9;
+            // 
+            // comboBoxSelectChecsJsonTasnif
+            // 
+            this.comboBoxSelectChecsJsonTasnif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxSelectChecsJsonTasnif.FormattingEnabled = true;
+            this.comboBoxSelectChecsJsonTasnif.Items.AddRange(new object[] { "Все чеки", "Успешные", "ИКПУ не найден", "Все, кроме успешных", "Не пройденные" });
+            this.comboBoxSelectChecsJsonTasnif.Location = new System.Drawing.Point(525, 45);
+            this.comboBoxSelectChecsJsonTasnif.Name = "comboBoxSelectChecsJsonTasnif";
+            this.comboBoxSelectChecsJsonTasnif.Size = new System.Drawing.Size(237, 24);
+            this.comboBoxSelectChecsJsonTasnif.TabIndex = 8;
+            this.comboBoxSelectChecsJsonTasnif.Text = "Все чеки";
+            // 
+            // buttonOpenJsonTasnif
+            // 
+            this.buttonOpenJsonTasnif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOpenJsonTasnif.Location = new System.Drawing.Point(6, 6);
+            this.buttonOpenJsonTasnif.Name = "buttonOpenJsonTasnif";
+            this.buttonOpenJsonTasnif.Size = new System.Drawing.Size(103, 30);
+            this.buttonOpenJsonTasnif.TabIndex = 7;
+            this.buttonOpenJsonTasnif.Text = "Open Json";
+            this.buttonOpenJsonTasnif.UseVisualStyleBackColor = true;
+            this.buttonOpenJsonTasnif.Click += new System.EventHandler(this.buttonOpenJson_Click);
+            // 
+            // tableJsonTasnif
+            // 
+            this.tableJsonTasnif.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableJsonTasnif.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tableJsonTasnif.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.tableJsonTasnif.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableJsonTasnif.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridViewTextBoxColumn4, this.dataGridViewTextBoxColumn5, this.dataGridViewTextBoxColumn6 });
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tableJsonTasnif.DefaultCellStyle = dataGridViewCellStyle8;
+            this.tableJsonTasnif.Location = new System.Drawing.Point(6, 45);
+            this.tableJsonTasnif.Name = "tableJsonTasnif";
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tableJsonTasnif.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.tableJsonTasnif.RowTemplate.Height = 24;
+            this.tableJsonTasnif.Size = new System.Drawing.Size(508, 333);
+            this.tableJsonTasnif.TabIndex = 3;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.dataGridViewTextBoxColumn4.HeaderText = "id";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.dataGridViewTextBoxColumn5.HeaderText = "psic";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn6.HeaderText = "product";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 50;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             // 
             // tabPage5
             // 
@@ -445,46 +622,6 @@
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
             this.toolStripDropDownButton2.Size = new System.Drawing.Size(23, 23);
             // 
-            // fieldResponse
-            // 
-            this.fieldResponse.Location = new System.Drawing.Point(523, 80);
-            this.fieldResponse.Name = "fieldResponse";
-            this.fieldResponse.Size = new System.Drawing.Size(234, 66);
-            this.fieldResponse.TabIndex = 11;
-            this.fieldResponse.Text = "select id, psic_code, psic_text from catalog_categories where psic_code > 0 and s" + "tatus = 1";
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(655, 160);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 30);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Response";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.dataGridViewTextBoxColumn1.HeaderText = "id";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.dataGridViewTextBoxColumn2.HeaderText = "psic";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn3.HeaderText = "product";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 50;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -503,13 +640,25 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableTasnifDataBase)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tableJsonTasnif)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label labelCheckCountJsonTasnif;
+        private System.Windows.Forms.Button button1;
+
+        private System.Windows.Forms.ComboBox comboBoxSelectChecsJsonTasnif;
+
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.Button buttonOpenJsonTasnif;
 
         private System.Windows.Forms.ToolStripDropDownButton buttonOpenConnectDB;
 
         private System.Windows.Forms.CheckedListBox checkedListTasnifDataBase;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonResponse;
         private System.Windows.Forms.DataGridView tableTasnifDataBase;
 
         private System.Windows.Forms.RichTextBox fieldResponse;
@@ -532,14 +681,14 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
 
         private System.Windows.Forms.ComboBox comboBoxListChecksTasnifDB;
-        private System.Windows.Forms.CheckedListBox checkedListBox1;
+        private System.Windows.Forms.CheckedListBox checkedListJson;
         private System.Windows.Forms.Label labelCheckCountTasnifDB;
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView tableJsonTasnif;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonStartTasnifDB;
 
         private System.Windows.Forms.OpenFileDialog openDialogPDF;
 

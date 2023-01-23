@@ -14,6 +14,8 @@ namespace SoliqApp
 
         public MySqlConnection _connection;
         private MySqlDataReader reader;
+
+        public List<DBCheck> selectedChecks;
         public List<DBCheck> _checks;
         public List<DBCheck> statusSuccess;
         public List<DBCheck> statusNotSuccess;
@@ -73,6 +75,8 @@ namespace SoliqApp
                 }
                 _checks.Add(check);
             }
+
+            selectedChecks = _checks;
             reader.Close();
         }
         
@@ -89,9 +93,29 @@ namespace SoliqApp
         //создаем листы чеков по статусам
         public void CreateListsOfCheck()
         {
+            StringBDInArray();
             statusSuccess = _checks.Where(i => i.status == 1).ToList();
             statusNull = _checks.Where(i => i.status == 0).ToList();
             statusNotSuccess = _checks.Where(i => i.status != 1).ToList();
+        }
+
+        public void SwitchSelectList(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    selectedChecks = _checks;
+                    break;
+                case 1:
+                    selectedChecks = statusSuccess;
+                    break;
+                case 2:
+                    selectedChecks = statusNotSuccess;
+                    break;
+                case 3:
+                    selectedChecks = statusNull;
+                    break;
+            }
         }
         
     }
