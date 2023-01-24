@@ -39,6 +39,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.labelProductInfoSoliq = new System.Windows.Forms.Label();
@@ -80,15 +83,28 @@
             this.comboBoxSelectChecsJsonTasnif = new System.Windows.Forms.ComboBox();
             this.buttonOpenJsonTasnif = new System.Windows.Forms.Button();
             this.tableJsonTasnif = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.buttonStartAdd = new System.Windows.Forms.Button();
+            this.labelCountListAdd = new System.Windows.Forms.Label();
+            this.checkedListAdd = new System.Windows.Forms.CheckedListBox();
+            this.comboBoxAdd = new System.Windows.Forms.ComboBox();
+            this.tableAdd = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonOpenJsonAddCategory = new System.Windows.Forms.ToolStripMenuItem();
+            this.fieldDataBaseAdd = new System.Windows.Forms.ToolStripTextBox();
+            this.fieldLocal = new System.Windows.Forms.ToolStripTextBox();
+            this.buttonConnectToBDAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileJson = new System.Windows.Forms.OpenFileDialog();
             this.saveDialogJson = new System.Windows.Forms.SaveFileDialog();
             this.openDialogPDF = new System.Windows.Forms.OpenFileDialog();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableSoliq)).BeginInit();
@@ -99,6 +115,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tableTasnifDataBase)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableJsonTasnif)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tableAdd)).BeginInit();
             this.SuspendLayout();
             // 
             // tabMain
@@ -240,7 +258,7 @@
             // statusColumnSoliq
             // 
             this.statusColumnSoliq.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.statusColumnSoliq.HeaderText = "psic";
+            this.statusColumnSoliq.HeaderText = "psic_code";
             this.statusColumnSoliq.MinimumWidth = 100;
             this.statusColumnSoliq.Name = "statusColumnSoliq";
             // 
@@ -464,7 +482,7 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.dataGridViewTextBoxColumn2.HeaderText = "psic";
+            this.dataGridViewTextBoxColumn2.HeaderText = "psic_code";
             this.dataGridViewTextBoxColumn2.MinimumWidth = 100;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
@@ -591,29 +609,14 @@
             this.tableJsonTasnif.TabIndex = 3;
             this.tableJsonTasnif.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.tableSoliq_CellEnter);
             // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.dataGridViewTextBoxColumn4.HeaderText = "id";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.dataGridViewTextBoxColumn5.HeaderText = "psic";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 100;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn6.HeaderText = "product";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 50;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.button1);
+            this.tabPage5.Controls.Add(this.buttonStartAdd);
+            this.tabPage5.Controls.Add(this.labelCountListAdd);
+            this.tabPage5.Controls.Add(this.checkedListAdd);
+            this.tabPage5.Controls.Add(this.comboBoxAdd);
+            this.tabPage5.Controls.Add(this.tableAdd);
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
@@ -621,6 +624,144 @@
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "Add Category";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(6, 9);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 30);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Open Json";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.buttonOpenJsonAddCategory_Click);
+            // 
+            // buttonStartAdd
+            // 
+            this.buttonStartAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonStartAdd.Location = new System.Drawing.Point(661, 348);
+            this.buttonStartAdd.Name = "buttonStartAdd";
+            this.buttonStartAdd.Size = new System.Drawing.Size(103, 30);
+            this.buttonStartAdd.TabIndex = 17;
+            this.buttonStartAdd.Text = "Start";
+            this.buttonStartAdd.UseVisualStyleBackColor = true;
+            this.buttonStartAdd.Visible = false;
+            this.buttonStartAdd.Click += new System.EventHandler(this.buttonStartAdd_Click);
+            // 
+            // labelCountListAdd
+            // 
+            this.labelCountListAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelCountListAdd.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.labelCountListAdd.Location = new System.Drawing.Point(530, 290);
+            this.labelCountListAdd.Name = "labelCountListAdd";
+            this.labelCountListAdd.Size = new System.Drawing.Size(235, 42);
+            this.labelCountListAdd.TabIndex = 16;
+            // 
+            // checkedListAdd
+            // 
+            this.checkedListAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListAdd.FormattingEnabled = true;
+            this.checkedListAdd.Items.AddRange(new object[] { "Сохранять изменения", "Авто-бэкап до запуска", "Сохранить json после запуска" });
+            this.checkedListAdd.Location = new System.Drawing.Point(529, 204);
+            this.checkedListAdd.Name = "checkedListAdd";
+            this.checkedListAdd.Size = new System.Drawing.Size(235, 72);
+            this.checkedListAdd.TabIndex = 15;
+            // 
+            // comboBoxAdd
+            // 
+            this.comboBoxAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxAdd.FormattingEnabled = true;
+            this.comboBoxAdd.Items.AddRange(new object[] { "Все чеки", "Успешные", "Не пройденные" });
+            this.comboBoxAdd.Location = new System.Drawing.Point(527, 45);
+            this.comboBoxAdd.Name = "comboBoxAdd";
+            this.comboBoxAdd.Size = new System.Drawing.Size(237, 24);
+            this.comboBoxAdd.TabIndex = 12;
+            this.comboBoxAdd.Text = "Все чеки";
+            this.comboBoxAdd.SelectedIndexChanged += new System.EventHandler(this.comboBoxChanged);
+            // 
+            // tableAdd
+            // 
+            this.tableAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableAdd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tableAdd.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.tableAdd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableAdd.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { this.dataGridViewTextBoxColumn7, this.dataGridViewTextBoxColumn8, this.status });
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tableAdd.DefaultCellStyle = dataGridViewCellStyle11;
+            this.tableAdd.Location = new System.Drawing.Point(6, 45);
+            this.tableAdd.Name = "tableAdd";
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tableAdd.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.tableAdd.RowTemplate.Height = 24;
+            this.tableAdd.Size = new System.Drawing.Size(508, 333);
+            this.tableAdd.TabIndex = 4;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.dataGridViewTextBoxColumn7.HeaderText = "id";
+            this.dataGridViewTextBoxColumn7.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn8.HeaderText = "psic_code";
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // status
+            // 
+            this.status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.status.HeaderText = "status";
+            this.status.Name = "status";
+            this.status.Width = 71;
+            // 
+            // buttonOpenJsonAddCategory
+            // 
+            this.buttonOpenJsonAddCategory.BackColor = System.Drawing.SystemColors.Info;
+            this.buttonOpenJsonAddCategory.Name = "buttonOpenJsonAddCategory";
+            this.buttonOpenJsonAddCategory.Size = new System.Drawing.Size(160, 24);
+            this.buttonOpenJsonAddCategory.Text = "Open Json";
+            this.buttonOpenJsonAddCategory.Click += new System.EventHandler(this.buttonOpenJsonAddCategory_Click);
+            // 
+            // fieldDataBaseAdd
+            // 
+            this.fieldDataBaseAdd.Name = "fieldDataBaseAdd";
+            this.fieldDataBaseAdd.Size = new System.Drawing.Size(100, 27);
+            this.fieldDataBaseAdd.Text = "10.20.33.5";
+            // 
+            // fieldLocal
+            // 
+            this.fieldLocal.Name = "fieldLocal";
+            this.fieldLocal.Size = new System.Drawing.Size(100, 27);
+            this.fieldLocal.Text = "paym_eva";
+            // 
+            // buttonConnectToBDAdd
+            // 
+            this.buttonConnectToBDAdd.BackColor = System.Drawing.SystemColors.Highlight;
+            this.buttonConnectToBDAdd.Name = "buttonConnectToBDAdd";
+            this.buttonConnectToBDAdd.Size = new System.Drawing.Size(160, 24);
+            this.buttonConnectToBDAdd.Text = "Connect";
             // 
             // openDialogPDF
             // 
@@ -635,6 +776,30 @@
             // 
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
             this.toolStripDropDownButton2.Size = new System.Drawing.Size(23, 23);
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.dataGridViewTextBoxColumn4.FillWeight = 30F;
+            this.dataGridViewTextBoxColumn4.HeaderText = "id";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn5.HeaderText = "psic_code";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 100;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.dataGridViewTextBoxColumn6.FillWeight = 30F;
+            this.dataGridViewTextBoxColumn6.HeaderText = "status";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 50;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Width = 50;
             // 
             // Form1
             // 
@@ -656,8 +821,31 @@
             ((System.ComponentModel.ISupportInitialize)(this.tableTasnifDataBase)).EndInit();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tableJsonTasnif)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tableAdd)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button button1;
+
+        private System.Windows.Forms.DataGridViewTextBoxColumn status;
+
+        private System.Windows.Forms.Button buttonStartAdd;
+
+        private System.Windows.Forms.ComboBox comboBoxAdd;
+        private System.Windows.Forms.CheckedListBox checkedListAdd;
+        private System.Windows.Forms.Label labelCountListAdd;
+
+        private System.Windows.Forms.ToolStripMenuItem buttonOpenJsonAddCategory;
+
+        private System.Windows.Forms.DataGridView tableAdd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.ToolStripTextBox fieldDataBaseAdd;
+        private System.Windows.Forms.ToolStripTextBox fieldLocal;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox3;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox4;
+        private System.Windows.Forms.ToolStripMenuItem buttonConnectToBDAdd;
 
         private System.Windows.Forms.Label labelProductInfoJsonTasnif;
 

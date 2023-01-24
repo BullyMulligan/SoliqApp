@@ -17,9 +17,12 @@ namespace SoliqApp
         private DBpsic dataBase;
         private Soliq soliq = new Soliq();
         private JsonPsic jsonPsic;
+        private Category psicAdd;
         private Automatic testSoliq;
         private Automatic testTasnifBD;
         private Automatic testJsonTasnif;
+        private Automatic testAddPsic;
+        
         public Form1()
         {
             InitializeComponent();
@@ -64,26 +67,33 @@ namespace SoliqApp
                     DataGridViewRow row = (DataGridViewRow)table.Rows[0].Clone();
                     if (table==tableSoliq)
                     {
-                        row.Cells[0].Value = soliq.selectedList[i].id;
-                        row.Cells[1].Value = soliq.selectedList[i].product[0].psic;
-                        row.Cells[2].Value = soliq.selectedList[i].status;
+                        row.Cells[0].Value = soliq.selectedCheckList[i].id;
+                        row.Cells[1].Value = soliq.selectedCheckList[i].product[0].psic;
+                        row.Cells[2].Value = soliq.selectedCheckList[i].status;
                         
                     }
 
                     if (table==tableTasnifDataBase)
                     {
-                        row.Cells[0].Value = dataBase.selectedChecks[i].id;
-                        row.Cells[1].Value = dataBase.selectedChecks[i].psic_code;
-                        row.Cells[2].Value = dataBase.selectedChecks[i].psic_text;
+                        row.Cells[0].Value = dataBase.selectedCheckList[i].id;
+                        row.Cells[1].Value = dataBase.selectedCheckList[i].psic_code;
+                        row.Cells[2].Value = dataBase.selectedCheckList[i].psic_text;
                         
                     }
 
                     if (table==tableJsonTasnif)
                     {
-                        row.Cells[0].Value = jsonPsic.selectedList[i].id;
-                        row.Cells[1].Value = jsonPsic.selectedList[i].product[0].psic;
-                        row.Cells[2].Value = jsonPsic.selectedList[i].status;
+                        row.Cells[0].Value = i + 1;
+                        row.Cells[1].Value = jsonPsic.selectedCheckList[i].psic_code;
+                        row.Cells[2].Value = jsonPsic.selectedCheckList[i].status;
                         
+                    }
+                    if (table==tableAdd)
+                    {
+                        row.Cells[0].Value = i+1;
+                        row.Cells[1].Value = psicAdd.selectedCheckList[i].psic_code;
+                        row.Cells[2].Value = psicAdd.selectedCheckList[i].status;
+
                     }
                     table.Rows.Add(row);
                 }
@@ -91,6 +101,7 @@ namespace SoliqApp
                 if (table==tableSoliq){labelCountChecksSoliq.Text = $"Количество чеков: {checks.Count}";}
                 if (table==tableTasnifDataBase){labelCheckCountTasnifDB.Text = $"Количество чеков: {checks.Count}";}
                 if (table==tableJsonTasnif){labelCheckCountJsonTasnif.Text = $"Количество чеков: {checks.Count}";}
+                if (table==tableAdd){labelCountListAdd.Text = $"Количество чеков: {checks.Count}";}
             }
         }
 
@@ -99,12 +110,12 @@ namespace SoliqApp
         //ивент включается при нажатии кнопки OpenJson
         private void buttonOpenJsonMySoliq_Click(object sender, EventArgs e)
         {
-            soliq._checks = new List<Automatic.Check>();
+            soliq.сheckList = new List<Automatic.Check>();
             openFileJson.ShowDialog();
-            soliq._checks = OpenJsonFile(soliq._checks);
-            soliq.selectedList = soliq._checks;
+            soliq.сheckList = OpenJsonFile(soliq.сheckList);
+            soliq.selectedCheckList = soliq.сheckList;
             soliq.CheckCounting();
-            FillTable(tableSoliq,soliq.selectedList);
+            FillTable(tableSoliq,soliq.selectedCheckList);
         }
 
         //ивент включается при выборе ячйки внутри таблицы
@@ -130,7 +141,6 @@ namespace SoliqApp
                                 labelProductInfoJsonTasnif.Text = $"Product: {request._psicInfo.data.content[0].attributeName}";
                                 break;
                         }
-                        
                     }
                     else
                     {
@@ -159,17 +169,23 @@ namespace SoliqApp
             if (combobox == comboBoxCheckListSoliq)
             {
                 soliq.SwitchSelectList(comboBoxCheckListSoliq.SelectedIndex);
-                FillTable(tableSoliq,soliq.selectedList);
+                FillTable(tableSoliq,soliq.selectedCheckList);
             }
             if (combobox == comboBoxListChecksTasnifDB)
             {
                 dataBase.SwitchSelectList(comboBoxListChecksTasnifDB.SelectedIndex);
-                FillTable(tableTasnifDataBase,dataBase.selectedChecks);
+                FillTable(tableTasnifDataBase,dataBase.selectedCheckList);
             }
             if (combobox == comboBoxSelectChecsJsonTasnif)
             {
                 jsonPsic.SwitchSelectList(comboBoxSelectChecsJsonTasnif.SelectedIndex);
-                FillTable(tableJsonTasnif,jsonPsic.selectedList);
+                FillTable(tableJsonTasnif,jsonPsic.selectedCheckList);
+                
+            }
+            if (combobox == comboBoxAdd)
+            {
+                psicAdd.SwitchSelectList(comboBoxAdd.SelectedIndex);
+                FillTable(tableAdd,psicAdd.selectedCheckList);
                 
             }
         }
@@ -188,14 +204,14 @@ namespace SoliqApp
         //ивент вызывается при нажатии на кнопку "Start"
         private void buttonStartSoliq_Click(object sender, EventArgs e)
         {
-            if (checkedListSoliq.GetItemChecked(2)){SaveBackupOrDone(soliq._checks, "backup");}
+            if (checkedListSoliq.GetItemChecked(2)){SaveBackupOrDone(soliq.сheckList, "backup");}
             Automatic.InfoAboutMethod info = new Automatic.InfoAboutMethod(comboBoxCheckListSoliq.SelectedIndex,
                 checkedListSoliq.GetItemChecked(1), openDialogPDF.FileName);
-            testSoliq = new Automatic(soliq._checks, info);
+            testSoliq = new Automatic(soliq.сheckList, info);
             try
             {
                 testSoliq.MySoligUniversal();
-                soliq._checks = testSoliq.checks;
+                soliq.сheckList = testSoliq.checks;
             }
             catch (Exception exception)
             {
@@ -203,6 +219,9 @@ namespace SoliqApp
             }
             if(checkedListSoliq.GetItemChecked(1)){SaveBackupOrDone(testSoliq.checks, "");}
             if(checkedListSoliq.GetItemChecked(1)){SaveBackupOrDone(testSoliq.checks, "done");}
+            //пересчитываем число пройденных чеков и обновляем их количество в лейбле
+            soliq.CheckCounting();
+            soliq.SwitchSelectList(comboBoxListChecksTasnifDB.SelectedIndex);
         }
 
         //*********************************************TasnifDataBase********************************************
@@ -227,7 +246,7 @@ namespace SoliqApp
         {
             try
             {
-                dataBase = new DBpsic("10.20.33.5", "paym_eva", "dev-base", "Xe3nQx287");
+                dataBase = new DBpsic(fieldDataBase.Text, fieldLocalHost.Text, fieldUserID.Text, fieldPassword.Text);
                 dataBase.AddMySQLConnection();
                 dataBase.OpenConnection();
                 CheckStatusConnection();
@@ -247,7 +266,7 @@ namespace SoliqApp
                 dataBase.CheckCounting();
                 dataBase.CloseConection();
                 CheckStatusConnection(); 
-                FillTable(tableTasnifDataBase,dataBase.selectedChecks);
+                FillTable(tableTasnifDataBase,dataBase.selectedCheckList);
             }
             catch (Exception exception)
             {
@@ -259,49 +278,81 @@ namespace SoliqApp
 
         private void buttonStartTasnifDB_Click(object sender, EventArgs e)
         {
-            if (checkedListTasnifDataBase.GetItemChecked(1)){ SaveJsonFileSoliq(dataBase._checks);}
-            testTasnifBD = new Automatic(dataBase._checks);
+            if (checkedListTasnifDataBase.GetItemChecked(1)){ SaveJsonFileSoliq(dataBase.checksList);}
+            testTasnifBD = new Automatic(dataBase.checksList);
             try
             {
                 testTasnifBD.TasnifChangePSIC();
-                dataBase._checks = testTasnifBD.psics;
+                dataBase.checksList = testTasnifBD.psics;
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
-                throw;
+                
             }
-            if (checkedListTasnifDataBase.GetItemChecked(0)){SaveJsonFileSoliq(dataBase._checks);}
+            if (checkedListTasnifDataBase.GetItemChecked(0)){SaveJsonFileSoliq(dataBase.checksList);}
+            dataBase.CheckCounting();
+            dataBase.SwitchSelectList(comboBoxListChecksTasnifDB.SelectedIndex);
         }
         //******************************************TasnifJson*******************************************
         private void buttonOpenJson_Click(object sender, EventArgs e)
         {
             jsonPsic = new JsonPsic();
             openFileJson.ShowDialog();
-            jsonPsic._checks = OpenJsonFile(jsonPsic._checks);
+            jsonPsic.сheckList = OpenJsonFile(jsonPsic.сheckList);
             jsonPsic.CheckCounting();
             jsonPsic.SwitchSelectList(comboBoxSelectChecsJsonTasnif.SelectedIndex);
             
-            FillTable(tableJsonTasnif,jsonPsic.selectedList);
+            FillTable(tableJsonTasnif,jsonPsic.selectedCheckList);
         }
 
+        //ивент вызывается при нажатии на кнопку Start
         private void buttonJsonTasnif_Click(object sender, EventArgs e)
         {
-            if (checkedListJsonTasnif.GetItemChecked(1)){SaveBackupOrDone(jsonPsic._checks,"_backup");}
-            testJsonTasnif = new Automatic(jsonPsic._checks);
+            if (checkedListJsonTasnif.GetItemChecked(1)){SaveBackupOrDone(jsonPsic.сheckList,"_backup");}
+            testJsonTasnif = new Automatic(jsonPsic.сheckList);
             try
             {
-                testJsonTasnif.TasnifChangePSICJson();
-                jsonPsic._checks = testJsonTasnif.checks;
+                testJsonTasnif.TasnifChangePSIC();
+                jsonPsic.сheckList = testJsonTasnif.psics;
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
                 throw;
             }
-            if (checkedListJsonTasnif.GetItemChecked(0)){SaveBackupOrDone(jsonPsic._checks,"");}
-            if (checkedListJsonTasnif.GetItemChecked(2)){SaveBackupOrDone(jsonPsic._checks,"_done");}
-            
+            if (checkedListJsonTasnif.GetItemChecked(0)){SaveBackupOrDone(jsonPsic.сheckList,"");}
+            if (checkedListJsonTasnif.GetItemChecked(2)){SaveBackupOrDone(jsonPsic.сheckList,"_done");}
+            jsonPsic.CheckCounting();
+            jsonPsic.SwitchSelectList(comboBoxSelectChecsJsonTasnif.SelectedIndex);
+        }
+
+        private void buttonOpenJsonAddCategory_Click(object sender, EventArgs e)
+        {
+            psicAdd = new Category();
+            openFileJson.ShowDialog();
+            psicAdd.checkList = OpenJsonFile(psicAdd.checkList);
+            psicAdd.CheckCounting();
+            psicAdd.SwitchSelectList(comboBoxAdd.SelectedIndex);
+            FillTable(tableAdd,psicAdd.selectedCheckList);
+        }
+        
+        private void buttonStartAdd_Click(object sender, EventArgs e)
+        {
+            if (checkedListAdd.GetItemChecked(1)){SaveBackupOrDone(psicAdd.checkList,"_backup");}
+            testAddPsic = new Automatic(psicAdd.checkList);
+            try
+            {
+                testAddPsic.Tasnif();
+                psicAdd.checkList=testAddPsic.psics;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+
+            if (checkedListAdd.GetItemChecked(0)){SaveBackupOrDone(psicAdd.checkList,"");}
+            if (checkedListAdd.GetItemChecked(2)){SaveBackupOrDone(psicAdd.checkList,"_done");}
         }
     }
 }

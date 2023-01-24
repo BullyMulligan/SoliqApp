@@ -15,11 +15,11 @@ namespace SoliqApp
         public MySqlConnection _connection;
         private MySqlDataReader reader;
 
-        public List<DBCheck> selectedChecks;
-        public List<DBCheck> _checks;
-        public List<DBCheck> statusSuccess;
-        public List<DBCheck> statusNotSuccess;
-        public List<DBCheck> statusNull;
+        public List<Automatic.PsicCategory> selectedCheckList;
+        public List<Automatic.PsicCategory> checksList;
+        public List<Automatic.PsicCategory> successCheckList;
+        public List<Automatic.PsicCategory> notSuccessCheckList;
+        public List<Automatic.PsicCategory> nullCheckList;
 
         public DBpsic(string database, string localhost, string userId, string password)
         {
@@ -27,14 +27,6 @@ namespace SoliqApp
             _localhost = localhost;
             _userId = userId;
             _password = password;
-        }
-        public class DBCheck
-        {
-            public string id { get; set; }
-            public string psic_code { get; set; }
-            public string psic_text { get; set; }
-            public int status { get; set; }
-            public string new_psic { get; set; }
         }
         
         public void AddMySQLConnection()
@@ -59,10 +51,10 @@ namespace SoliqApp
 
         public void StringBDInArray()
         {
-            _checks = new List<DBCheck>();
+            checksList = new List<Automatic.PsicCategory>();
             while (reader.Read())
             {
-                DBCheck check = new DBCheck();
+                Automatic.PsicCategory check = new Automatic.PsicCategory();
                 check.id = reader.GetString(0);
                 check.psic_code = reader.GetString(1);
                 if (reader.GetValue(2)!=null)//проверяем, если стринг пустой
@@ -73,10 +65,10 @@ namespace SoliqApp
                 {
                     check.psic_code = "";
                 }
-                _checks.Add(check);
+                checksList.Add(check);
             }
 
-            selectedChecks = _checks;
+            selectedCheckList = checksList;
             reader.Close();
         }
         
@@ -94,9 +86,9 @@ namespace SoliqApp
         public void CheckCounting()
         {
             StringBDInArray();
-            statusSuccess = _checks.Where(i => i.status == 1).ToList();
-            statusNull = _checks.Where(i => i.status == 0).ToList();
-            statusNotSuccess = _checks.Where(i => i.status != 1).ToList();
+            successCheckList = checksList.Where(i => i.status == 1).ToList();
+            nullCheckList = checksList.Where(i => i.status == 0).ToList();
+            notSuccessCheckList = checksList.Where(i => i.status != 1).ToList();
         }
 
         public void SwitchSelectList(int index)
@@ -104,16 +96,16 @@ namespace SoliqApp
             switch (index)
             {
                 case 0:
-                    selectedChecks = _checks;
+                    selectedCheckList = checksList;
                     break;
                 case 1:
-                    selectedChecks = statusSuccess;
+                    selectedCheckList = successCheckList;
                     break;
                 case 2:
-                    selectedChecks = statusNotSuccess;
+                    selectedCheckList = notSuccessCheckList;
                     break;
                 case 3:
-                    selectedChecks = statusNull;
+                    selectedCheckList = nullCheckList;
                     break;
             }
         }

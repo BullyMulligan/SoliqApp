@@ -1,17 +1,11 @@
-
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using NUnit.Framework;
-using OpenQA.Selenium.Support.Extensions;
-using OpenQA.Selenium.Interactions;
 using Cookie = OpenQA.Selenium.Cookie;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.DevTools.V108.IndexedDB;
 using Keys = OpenQA.Selenium.Keys;
 namespace SoliqApp
 {
@@ -19,16 +13,13 @@ namespace SoliqApp
     {
         public List<Check> checks;
         private InfoAboutMethod info;
-        public List<DBpsic.DBCheck> psics;
-        public List<PsicCategory> psicJson;
-        
-
+        public List<PsicCategory> psics;
         public Automatic(List<Check> _checks, InfoAboutMethod _info)
         {
             checks = _checks;
             info = _info;
         }
-        public Automatic(List<DBpsic.DBCheck> _psics)
+        public Automatic(List<PsicCategory> _psics)
         {
             psics = _psics;
         }
@@ -37,69 +28,7 @@ namespace SoliqApp
             checks = _checks;
         }
         
-        
         public void TasnifChangePSICJson()
-        {
-            driver = new ChromeDriver(); //открываем Хром
-            driver.Manage().Window.Maximize(); //открыть в полном окне
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
-            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(20);
-            driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(10);
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
-            driver.Navigate().GoToUrl("https://tasnif.soliq.uz");
-            driver.Manage().Cookies.AddCookie(new Cookie("route", "e1d411c9323dc6d99ec5a609ea7ed6d2"));
-            driver.Manage().Cookies.AddCookie(new Cookie("ADRUM_BTa", "R:31|g:1b550b98-bcb2-43e4-b3d4-945997782628|n:customer1_9c28b63e-99cb-4969-b91e-d0d7809dc215"));
-            driver.Manage().Cookies.AddCookie(new Cookie("SameSite", "None"));
-            driver.Manage().Cookies.AddCookie(new Cookie("route", "086c58384ea403180bada0e20efc3336"));
-            
-            //выбираем русский язык для простоты понимания
-            Click(_switchSaliqLanguage, 0);
-            Click(_languageRu, 2);
-            Click(_buttonEnter, 0);
-            Click(_buttonEnter, 0);
-            Click(_buttonEnter, 1);
-            
-            //ждем, пока не введен пароль
-            while (driver.FindElements(By.XPath("//div[@class='ant-col ant-col-7 Header_avatarPart__1jsPv']")).Count == 0) { }
-
-            try
-            {
-                Click(_flagFindByPsic);//кликаем на флажок "поиск по ИКПУ"
-                for (int i = 0; i < psicJson.Count; i++)
-                {
-                    if (psicJson[i].status==0)
-                    {
-                        SendKeys(_fieldFindPsic,psicJson[i].psic_code);//вводим в поле поиска psic_code
-                        
-                        //если появилось сообщение об изменении псика добавить new_psic в поле и поставить статус "изменен"
-                        if (driver.FindElements(_messageAboutNeedChange).Count>0)
-                        {
-                            psicJson[i].new_psic = driver.FindElement(_newPsic).Text;
-                            psicJson[i].status = 2;
-                        }
-
-                        //если появилось успешное сообщение ставим статус "успешно" и достаем текст
-                        if (driver.FindElements(_messageAboutTryePSIC).Count>0)
-                        {
-                            psicJson[i].psic_text = driver.FindElement(_productName).Text;
-                            psicJson[i].status = 1;
-                        }
-                        //по окончанию цикла(прохода по ИКПУ), обновляем страницу и жмем флажок "поиск по ИКПУ"
-                        driver.Navigate().GoToUrl("https://tasnif.soliq.uz");
-                        Click(_flagFindByPsic);
-                    }
-                    
-                }
-                MessageBox.Show("Все чеки пройдены");//выводим сообщение, что все чеки успешно пройдены
-            }
-            catch (Exception e)
-            {
-                
-                MessageBox.Show($"Ошибка \n{e}");//выводим ошибку
-            }
-        }
-        
-        public void TasnifChangePSIC()
         {
             driver = new ChromeDriver(); //открываем Хром
             driver.Manage().Window.Maximize(); //открыть в полном окне
@@ -155,12 +84,77 @@ namespace SoliqApp
             }
             catch (Exception e)
             {
+                
                 MessageBox.Show($"Ошибка \n{e}");//выводим ошибку
             }
         }
         
+        //метод запускающий проверку наличия ИКПУ в системе Тасниф
+        public void TasnifChangePSIC()
+        {
+            driver = new ChromeDriver(); //открываем Хром
+            driver.Manage().Window.Maximize(); //открыть в полном окне
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(20);
+            driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(10);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+            driver.Navigate().GoToUrl("https://tasnif.soliq.uz");
+            //заполняем куки
+            driver.Manage().Cookies.AddCookie(new Cookie("route", "e1d411c9323dc6d99ec5a609ea7ed6d2"));
+            driver.Manage().Cookies.AddCookie(new Cookie("ADRUM_BTa", "R:31|g:1b550b98-bcb2-43e4-b3d4-945997782628|n:customer1_9c28b63e-99cb-4969-b91e-d0d7809dc215"));
+            driver.Manage().Cookies.AddCookie(new Cookie("SameSite", "None"));
+            driver.Manage().Cookies.AddCookie(new Cookie("route", "086c58384ea403180bada0e20efc3336"));
+            
+            //выбираем русский язык для простоты понимания
+            Click(_switchSaliqLanguage, 0);
+            Click(_languageRu, 2);
+            Click(_buttonEnter, 0);
+            Click(_buttonEnter, 0);
+            Click(_buttonEnter, 1);
+            
+            //ждем, пока не введен пароль
+            while (driver.FindElements(By.XPath("//div[@class='ant-col ant-col-7 Header_avatarPart__1jsPv']")).Count == 0) { }
 
-        public PsicCategory[] Tasnif(PsicCategory[] psics)
+            try
+            {
+                //кликаем на флажок "поиск по ИКПУ"
+                Click(_flagFindByPsic);
+                for (int i = 0; i < psics.Count; i++)
+                {
+                    if (psics[i].status==0)
+                    {
+                        SendKeys(_fieldFindPsic,psics[i].psic_code);//вводим в поле поиска psic_code
+                        
+                        //если появилось сообщение об изменении псика добавить new_psic в поле и поставить статус "изменен"
+                        if (driver.FindElements(_messageAboutNeedChange).Count>0)
+                        {
+                            psics[i].new_psic = driver.FindElement(_newPsic).Text;
+                            psics[i].status = 2;
+                        }
+
+                        //если появилось успешное сообщение ставим статус "успешно" и достаем текст
+                        if (driver.FindElements(_messageAboutTryePSIC).Count>0)
+                        {
+                            psics[i].psic_text = driver.FindElement(_productName).Text;
+                            psics[i].status = 1;
+                        }
+                        //по окончанию цикла(прохода по ИКПУ), обновляем страницу и жмем флажок "поиск по ИКПУ"
+                        driver.Navigate().GoToUrl("https://tasnif.soliq.uz");
+                        Click(_flagFindByPsic);
+                    }
+                    
+                }
+                MessageBox.Show("Все чеки пройдены");//выводим сообщение, что все чеки успешно пройдены
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Ошибка \n{e}");//выводим ошибку
+            }
+            driver.Quit();
+        }
+        
+        //метод добавляющий категории ИКПУ в Тасниф
+        public void Tasnif()
         {
             driver = new ChromeDriver(); //открываем Хром
             driver.Manage().Window.Maximize(); //открыть в полном окне
@@ -181,7 +175,7 @@ namespace SoliqApp
 
             try
             {
-                for (int i = 0; i < psics.Length; i++)
+                for (int i = 0; i < psics.Count; i++)
                 {
                     if (psics[i].status==0)
                     {
@@ -214,7 +208,7 @@ namespace SoliqApp
             {
                 MessageBox.Show($"Ошибка {e}");//если пройзошла ошибка, выводим сообщение
             }
-            return psics;
+            driver.Quit();
         }
         [Test]
         public void MySoligUniversal()
@@ -368,16 +362,15 @@ namespace SoliqApp
                     }
                     Clear(_fieldcheckNumber); //очищаем поле "номер чека"
                 }
+                MessageBox.Show("Все чеки пройдены");
             }
             catch (Exception e) //при ошибке или сбое
             {
-                Console.WriteLine(e);
-                driver.Quit();
-                //throw;
+                MessageBox.Show("Ошибка Selenium: "+e);
             }
             driver.Quit();
-            MessageBox.Show("Все чеки пройдены");
-            //SaveJson(checks, jsonName); //сохраняем json
+            
+            //SaveJson(checksList, jsonName); //сохраняем json
         }
 
         public bool CheckStatus(string status,int indexStatus)//проверяем, проходит ли чек
@@ -427,7 +420,6 @@ namespace SoliqApp
             public string TIN { get; set; }
             public string status = "";
             public Product[] product;
-
             public class Product
             {
                 public string vat { get; set; }
@@ -456,6 +448,7 @@ namespace SoliqApp
 
         public class PsicCategory
         {
+            public string id { get; set; }
             public string psic_code { get; set; }//получаем ИКПУ из json
             public string new_psic { get; set; }//вставляем новый ИКПУ с tasnif
             
